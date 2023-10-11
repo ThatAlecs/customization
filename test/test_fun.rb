@@ -1,6 +1,7 @@
 # test_customization.rb
 
-require_relative 'customization'
+$LOAD_PATH << File.expand_path('../lib', __dir__)
+require 'customization'
 
 # Test text coloring
 puts "Text Coloring:"
@@ -70,3 +71,14 @@ puts wrapped_text
 # Using a custom color
 custom_color = "\e[38;5;200m"  # Custom ANSI code for pink color
 puts Customization.color_text("This is a custom color", nil, custom_color)
+
+# Test text animation
+puts "\nText Animation:"
+
+# Test scrolling text
+scrolling_text = "This text is scrolling from right to left."
+Customization.scroll_text(scrolling_text, 10) # You can adjust the speed (e.g., 10 characters per second)
+
+# Test typewriter text
+typewriter_text = "This text is being typed like a typewriter."
+Customization.typewriter_text(typewriter_text, 0.1) # You can adjust the speed (e.g., 0.1 seconds per character)
