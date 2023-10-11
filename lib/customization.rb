@@ -254,6 +254,29 @@ module Customization
     "#{TEXT_EFFECTS[:blink]}#{text}#{FORMATS[:reset]}"
   end
 
+  def self.scroll_text(text, speed = 1)
+    # Simulate scrolling text with the specified speed
+    text_length = visible_length(text)
+    text_with_padding = " " * text_length + text + " " * text_length
+    delay = 1.0 / speed
+  
+    text_with_padding.chars.each_with_index do |char, index|
+      print "\r#{text_with_padding[index, text_length]}"
+      sleep(delay)
+    end
+    print "\n"
+  end
+  
+  def self.typewriter_text(text, speed = 0.1)
+    # Simulate a typewriter effect with the specified speed
+    text.each_char do |char|
+      print char
+      sleep(speed)
+    end
+    print "\n"
+  end
+  
+
   def self.color_text(text, color, custom_code = nil)
     if COLORS.key?(color)
       "#{COLORS[color]}#{text}#{FORMATS[:reset]}"
