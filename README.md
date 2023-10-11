@@ -10,7 +10,7 @@
   <a href="#about">About</a> •
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
-  [Wiki](https://github.com/ThatAlecs/customization/wiki/)
+  <a href="https://github.com/ThatAlecs/customization/wiki/">Wiki</a>
 </div>
 
 <br />
