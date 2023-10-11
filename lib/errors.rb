@@ -13,12 +13,6 @@ module Customization
     end
   end
 
-  class InvalidFontSizeError < StandardError
-    def initialize(size)
-      super("Invalid font size: #{size}")
-    end
-  end
-
   class InvalidBorderError < StandardError
     def initialize(border)
       super("Invalid text border style: #{border}")
