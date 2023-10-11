@@ -45,3 +45,6 @@ To install the `Customization` module, use the following command:
 
 ```bash
 ruby gem install customization
+```
+
+[![Gem Version](https://badge.fury.io/rb/customization.svg)](https://badge.fury.io/rb/customization)
