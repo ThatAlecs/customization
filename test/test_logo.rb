@@ -1,7 +1,8 @@
-require_relative 'customization'
+$LOAD_PATH << File.expand_path('../lib', __dir__)
+require 'customization'
 
 # Define the ASCII art for the "Customization" module logo
-customizationrb_logo = <<-'CUSTOMIZATION_LOGO'
+customization_logo = <<-'CUSTOMIZATION_LOGO'
 -- +-----------------------------------------------------------------+
 -- |                                                                 |
 -- | ░█▀▀░█░█░█▀▀░▀█▀░█▀█░█▄█░▀█▀░▀▀█░█▀█░▀█▀░▀█▀░█▀█░█▀█░░░░█▀▄░█▀▄ |
