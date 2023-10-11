@@ -14,7 +14,7 @@
 </div>
 
 <p align="center">
-  <img src="https://media.discordapp.net/attachments/427876173289357332/1161781363549147236/image-removebg-preview.png?ex=65398c35&is=65271735&hm=40b3bef1d52e220c0e7148392b95d0bd18f0227f6941353806700d82361fc919&=" alt="Image" width="200">
+  <img src="https://media.discordapp.net/attachments/427876173289357332/1161781363549147236/image-removebg-preview.png?ex=65398c35&is=65271735&hm=40b3bef1d52e220c0e7148392b95d0bd18f0227f6941353806700d82361fc919&=" alt="Image">
 </p>
 
 ## About
