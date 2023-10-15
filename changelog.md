@@ -1,8 +1,8 @@
 # Customization.rb Changelog
 
-## Code Review: [Diffend](https://my.diffend.io/gems/customization/1.0.4/1.0.5)
+## Code Review: [Diffend](https://my.diffend.io/gems/customization/1.0.5/1.0.5_1)
 
-**CURRENT VERSION:** 1.0.5
+**CURRENT VERSION:** 1.0.5_1
 
 ### Changes:
 
