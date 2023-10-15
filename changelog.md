@@ -16,7 +16,10 @@
   - `dotted_circle`
   - `squiggly`
   - `checkered`
-- Added border customization for thickness, color, and size (on some terminals).
+
+- Added border customization for thickness and color (on some terminals).
+  Example: `puts Customization.set_text_border(text, border, color: :green, thickness: 2)`
+
 - Added `Customization.upcase` and `Customization.downcase` to uppercase or downcase a whole string.
 - Added `Customization.animation_end` to end an animation effect (experimental).
 - Added `Customization.stop_animations` to stop animations after a certain point (experimental).
