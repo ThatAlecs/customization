@@ -53,3 +53,6 @@ module Customization
     def initialize(opacity)
       super("Invalid text opacity value: #{opacity}")
     end
+  end
+end
+  
