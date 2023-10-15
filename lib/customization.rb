@@ -2,6 +2,7 @@
 
 module Customization
   COLORS = {
+     # Basic colors
     black: "\e[30m",
     red: "\e[31m",
     green: "\e[32m",
@@ -10,6 +11,7 @@ module Customization
     magenta: "\e[35m",
     cyan: "\e[36m",
     white: "\e[37m",
+    # Bright colors
     bright_black: "\e[90m",
     bright_red: "\e[91m",
     bright_green: "\e[92m",
@@ -19,6 +21,7 @@ module Customization
     bright_cyan: "\e[96m",
     bright_white: "\e[97m",
     gray: "\e[38;5;236m",
+    # Light colors
     light_red: "\e[38;5;196m",
     light_green: "\e[38;5;118m",
     light_yellow: "\e[38;5;226m",
@@ -27,6 +30,7 @@ module Customization
     light_cyan: "\e[38;5;87m",
     light_gray: "\e[38;5;248m",
     dark_gray: "\e[38;5;235m",
+    # Other colors
     purple: "\e[38;5;141m",
     orange: "\e[38;5;208m",
     pink: "\e[38;5;200m",
@@ -176,6 +180,12 @@ module Customization
     stars: "\u272D" * 30,         # Stars border
     arrows: "\u2192" * 30,        # Arrows border
     double_line: "\u2551" * 30,   # Double vertical line
+    wavy_line: "\u2233" * 30,    # Wavy horizontal line
+    thin_dotted: "\u2024" * 30,  # Thin dotted border
+    fancy: "\u2730" * 30,         # A fancy star border
+    dotted_circle: "\u25E6" * 30, # Dotted circle border
+    squiggly: "\u2E15" * 30,      # Squiggly line border
+    checkered: "\u25A2" * 30,     # Checkered border
   }.freeze
 
   TEXT_EFFECTS = {
@@ -183,6 +193,22 @@ module Customization
     blink: "\e[5m",              # Blinking text effect
     opacity: "\e[30;40m",        # Adjust text opacity (foreground and background colors)
   }.freeze
+
+  ## FLAGS
+
+  @space = 1
+
+  class << self
+    attr_accessor :space
+  end
+
+  @stop_animations = false
+
+  class << self
+    attr_accessor :stop_animations
+  end
+
+  ## END FLAGS
 
   def self.color_text(text, color)
     unless COLORS.key?(color)
@@ -202,6 +228,14 @@ module Customization
 
   def self.visible_length(text)
     text.gsub(/\e\[\d+(;\d+)*m/, '').length
+  end
+
+  def self.upcase(text)
+    text.upcase
+  end
+
+  def self.downcase(text)
+    text.downcase
   end
 
   def self.center_text(text, width)
@@ -250,6 +284,14 @@ module Customization
     "#{TEXT_EFFECTS[:shadow]}#{text}#{FORMATS[:reset]}"
   end
 
+  def self.space
+    "\n" * (@space || 1)  # Use a newline character, defaults to 1 if not set
+  end
+
+  def self.end
+    FORMATS[:reset]  # Reset text formatting to default
+  end
+
   def self.apply_blinking_effect(text)
     "#{TEXT_EFFECTS[:blink]}#{text}#{FORMATS[:reset]}"
   end
@@ -264,8 +306,8 @@ module Customization
       print "\r#{text_with_padding[index, text_length]}"
       sleep(delay)
     end
-    print "\n"
-  end
+    puts "\n"
+  end  
   
   def self.typewriter_text(text, speed = 0.1)
     # Simulate a typewriter effect with the specified speed
@@ -273,9 +315,30 @@ module Customization
       print char
       sleep(speed)
     end
-    print "\n"
+    puts "\n"
   end
   
+  def self.animate_text(text, speed: 1.0, delay: 0.0)
+    text_length = visible_length(text)
+    text_with_padding = " " * text_length + text + " " * text_length
+    delay_time = 1.0 / speed
+
+    text_with_padding.chars.each_with_index do |char, index|
+      break if @stop_animations
+      print "\r#{text_with_padding[index, text_length]}"
+      sleep(delay_time)
+      sleep(delay) if delay > 0.0
+    end
+    print "\n"
+  end
+
+  def self.animation_end
+    @stop_animations = false
+  end
+
+  def self.stop_animations
+    @stop_animations = true
+  end
 
   def self.color_text(text, color, custom_code = nil)
     if COLORS.key?(color)
@@ -309,13 +372,19 @@ module Customization
     gradient + FORMATS[:reset]
   end
 
-  def self.set_text_border(text, border)
-    unless BORDERS.key?(border)
-      raise InvalidBorderError.new(border)
-    end
-
-    "#{BORDERS[border]}#{text}#{BORDERS[border]}"
+def self.set_text_border(text, border, color: :black, thickness: 1)
+  unless BORDERS.key?(border)
+    raise InvalidBorderError.new(border)
   end
+
+  # Customize the border with the specified color, thickness, and style
+  border_code = BORDERS[border]
+  border_code = "#{COLORS[color]}#{border_code}" if COLORS.key?(color)
+  border_code = "#{border_code}\e[38;5;#{thickness}m" if thickness > 1
+
+  "#{border_code}#{text}#{BORDERS[border]}"
+end
+
 
   def self.text_with_shadow(text, shadow_color, blur_radius, x_offset, y_offset)
     shadow = "\e[38;2;#{shadow_color[:r]};#{shadow_color[:g]};#{shadow_color[:b]};48;2;#{shadow_color[:r]};#{shadow_color[:g]};#{shadow_color[:b]}m"
